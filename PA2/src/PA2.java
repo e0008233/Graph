@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.*;
 
 public class PA2
 {
@@ -16,7 +17,7 @@ public class PA2
     try
     {
       // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:D:/Coding/Workspace/PA2/data/pa2.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:D:/UCSD/CSE132A/PA2/data/pa2.db");
       Statement statement = connection.createStatement();
       statement.setQueryTimeout(30);  // set timeout to 30 sec.
       
@@ -25,9 +26,13 @@ public class PA2
       while(rs.next())
       {
         // read the result set
-        System.out.println("airline = " + rs.getString("airline"));
-        System.out.println("origin = " + rs.getString("origin"));
-        System.out.println("destination = " + rs.getString("destination"));
+    	String airName = rs.getString("airline");
+    	String origin= rs.getString("origin");
+    	String destination= rs.getString("destination");
+//        System.out.println("airline = " + airName);
+//        System.out.println("origin = " + origin);
+//        System.out.println("destination = " + destination);
+    	
       }
     }
     catch(SQLException e)
@@ -51,9 +56,22 @@ public class PA2
     }
   }
 }
-class Airline{
-	public String airlineName;
-	public String origin;
-	public String destination;
-
+class Vertex {
+	public String id;
+	public boolean visited;
+	public Set<String> edges = new HashSet<String>();
+	public Vertex(String airlineName){
+		id=airlineName;
+		visited=false;
+		
+	}
 }
+class Graph {
+
+	public Hashtable<String,Vertex> vertices;
+	public Graph() {
+		vertices = new Hashtable<String,Vertex>(); 
+	}
+
+
+};
